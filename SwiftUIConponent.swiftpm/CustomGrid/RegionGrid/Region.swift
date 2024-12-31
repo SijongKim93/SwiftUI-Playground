@@ -7,10 +7,18 @@
 
 import Foundation
 
-struct Region: Identifiable {
+struct Region: Identifiable, Hashable {
     let id = UUID()
     let name: String
-    let districts: [District]
+    var districts: [District]
+    
+    static func == (lhs: Region, rhs: Region) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 struct District: Identifiable {
